@@ -1,0 +1,21 @@
+.Header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+    background-color: cadetblue;
+}
+
+.Header h1{
+    margin-left: 20px;
+}
+
+.Header a{
+    text-decoration: none;
+    font-size: 25px;
+    margin: 0 10px;
+}
+
+.tools{
+    display: flex;
+}
