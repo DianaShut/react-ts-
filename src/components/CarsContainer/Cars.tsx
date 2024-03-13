@@ -1,12 +1,19 @@
-import {FC} from "react";
+import {useAppDispatch, useAppSelector} from "../../hooks";
+import {Car} from "./Car";
+import {useEffect} from "react";
+import {carsActions} from "../../store";
 
-interface IProps {
+const Cars = () => {
+    const {cars} = useAppSelector(state => state.cars)
+    const dispatch = useAppDispatch()
 
-}
-const Cars:FC<IProps> = () => {
+    useEffect(() => {
+        dispatch(carsActions.getAll())
+    }, []);
+
  return (
   <div>
-   Cars
+      {cars.map(car => <Car key={car.id} car={car}/>)}
   </div>
  );
 };

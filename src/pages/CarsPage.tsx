@@ -1,4 +1,5 @@
 import {FC} from "react";
+import {Cars} from "../components";
 
 interface IProps {
 
@@ -6,7 +7,7 @@ interface IProps {
 const CarsPage:FC<IProps> = () => {
  return (
   <div>
-   CarsPage
+   <Cars/>
   </div>
  );
 };

@@ -11,7 +11,7 @@ const authService = {
         localStorage.setItem(accessTokenKey, access)
         localStorage.setItem(refreshTokenKey, refresh)
     },
-    getAccessToke():string{
+    getAccessToken():string{
         return localStorage.getItem(accessTokenKey)
     },
     getRefreshToken():string{
@@ -26,7 +26,18 @@ const authService = {
     },
     me(): IRes<IUser>{
         return apiService.get(urls.auth.me)
-}
+    },
+    async login(user:IAuth): Promise<IUser>{
+        const {data} = await apiService.post(urls.auth.login, user)
+        this.setTokens(data)
+        const {data: me} = await this.me()
+        return me
+    },
+    async refresh(): Promise<void>{
+        const refreshToken = this.getRefreshToken()
+        const {data} = await apiService.post(urls.auth.refresh, {refresh: refreshToken}) //отримуємо нові токени
+        this.setTokens(data)
+    }
 }
 
 export {authService}
