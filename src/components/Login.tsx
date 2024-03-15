@@ -1,6 +1,6 @@
 import {SubmitHandler, useForm} from "react-hook-form";
 import {IAuth} from "../interfaces";
-import {useAppDispatch, useAppSelector} from "../hooks";
+import {useAppDispatch, useAppLocation, useAppSelector} from "../hooks";
 import {authActions} from "../store";
 import {useNavigate} from "react-router-dom";
 
@@ -9,11 +9,12 @@ const Login = () => {
     const dispatch = useAppDispatch()
     const {loginError} = useAppSelector(state => state.auth)
     const navigate = useNavigate()
+    const {state} = useAppLocation<{pathname:string}>()
 
     const login: SubmitHandler<IAuth> = async (user) =>{
        const {meta:{requestStatus}} = await dispatch(authActions.login({user}))
         if(requestStatus==='fulfilled'){
-            navigate('/cars')
+            navigate(state?.pathname||'/cars')
         }
     }
 
